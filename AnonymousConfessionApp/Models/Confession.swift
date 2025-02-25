@@ -1,3 +1,11 @@
+//
+//  Confession.swift
+//  AnonymousConfessionApp
+//
+//  Created by ABHINAV ANAND  on 22/02/25.
+//
+
+
 import Foundation
 
 struct Confession: Identifiable {

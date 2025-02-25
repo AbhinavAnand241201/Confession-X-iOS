@@ -6,15 +6,15 @@
 //
 
 import SwiftUI
+//import FirebaseCore
 
 @main
-struct AnonymousConfessionAppApp: App {
-    let persistenceController = PersistenceController.shared
+struct AnonymousConfessionApp: App {
+   
 
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

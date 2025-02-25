@@ -1,15 +1,11 @@
 import SwiftUI
 
 struct NotificationsView: View {
-    @State private var notifications: [String] = [
-        "JohnDoe liked your confession.",
-        "JaneDoe commented on your confession.",
-        "New confession posted by JohnDoe."
-    ]
+    @StateObject private var socketManager = SocketManager()
 
     var body: some View {
         NavigationView {
-            List(notifications, id: \.self) { notification in
+            List(socketManager.notifications, id: \.self) { notification in
                 Text(notification)
                     .font(.custom("Avenir", size: 16))
             }

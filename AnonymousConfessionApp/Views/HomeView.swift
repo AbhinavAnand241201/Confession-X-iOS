@@ -1,5 +1,4 @@
 import SwiftUI
-
 struct HomeView: View {
     @State private var showConfessionSheet = false
     @State private var confessions: [Confession] = [
@@ -10,52 +9,50 @@ struct HomeView: View {
     @State private var showSettings = false
 
     var body: some View {
-        NavigationView {
-            ScrollView {
-                VStack(spacing: 16) {
-                    ForEach(confessions) { confession in
-                        NavigationLink(destination: ConfessionDetailView(confession: binding(for: confession))) {
-                            ConfessionCard(confession: confession)
-                                .transition(.asymmetric(insertion: .move(edge: .top), removal: .opacity))
-                        }
-                        .buttonStyle(PlainButtonStyle()) // Remove default button styling
+        ScrollView {
+            VStack(spacing: 16) {
+                ForEach(confessions) { confession in
+                    NavigationLink(destination: ConfessionDetailView(confession: binding(for: confession))) {
+                        ConfessionCard(confession: confession)
+                            .transition(.asymmetric(insertion: .move(edge: .top), removal: .opacity))
                     }
-                }
-                .padding()
-            }
-            .navigationTitle("Confessions")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        showSettings.toggle()
-                    }) {
-                        Image(systemName: "gearshape")
-                            .font(.title2)
-                            .padding(8)
-                            .background(Color.blue.opacity(0.2))
-                            .clipShape(Circle())
-                    }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        withAnimation(.spring()) {
-                            showConfessionSheet.toggle()
-                        }
-                    }) {
-                        Image(systemName: "plus")
-                            .font(.title2)
-                            .padding(8)
-                            .background(Color.blue.opacity(0.2))
-                            .clipShape(Circle())
-                    }
+                    .buttonStyle(PlainButtonStyle()) // Remove default button styling
                 }
             }
-            .sheet(isPresented: $showConfessionSheet) {
-                PostConfessionView(confessions: $confessions)
+            .padding()
+        }
+        .navigationTitle("Confessions")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    showSettings.toggle()
+                }) {
+                    Image(systemName: "gearshape")
+                        .font(.title2)
+                        .padding(8)
+                        .background(Color.blue.opacity(0.2))
+                        .clipShape(Circle())
+                }
             }
-            .sheet(isPresented: $showSettings) {
-                SettingsView(confessions: $confessions)
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    withAnimation(.spring()) {
+                        showConfessionSheet.toggle()
+                    }
+                }) {
+                    Image(systemName: "plus")
+                        .font(.title2)
+                        .padding(8)
+                        .background(Color.blue.opacity(0.2))
+                        .clipShape(Circle())
+                }
             }
+        }
+        .sheet(isPresented: $showConfessionSheet) {
+            PostConfessionView(confessions: $confessions)
+        }
+        .sheet(isPresented: $showSettings) {
+            SettingsView(confessions: $confessions)
         }
     }
 
@@ -68,9 +65,4 @@ struct HomeView: View {
     }
 }
 
-// Preview Provider
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
-    }
-}
+
